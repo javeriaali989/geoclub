@@ -81,8 +81,52 @@
       <!-- Main Content -->
       <main>
         <!-- Hero Section -->
-        <section class="hero">
-          <div class="hero__photo" role="img" aria-label="Wind turbines across an energy landscape"></div>
+        <section class="hero" id="hero-slider-section" aria-roledescription="carousel" aria-label="Global Industrial Network Highlights">
+          <div class="hero__slider" id="hero-slider">
+            <div class="hero__slider-slides">
+              <!-- Slide 1: Wind Energy -->
+              <div class="hero__slide is-active" data-index="0" data-sector="Wind Energy &amp; Power Grids" data-tag="Renewable Energy" role="group" aria-roledescription="slide" aria-label="Slide 1 of 5: Wind Energy &amp; Power Grids">
+                <div class="hero__slide-image" style="background-image: url('https://images.unsplash.com/photo-1616596091194-eaec099773e4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;q=85&amp;w=1600');"></div>
+              </div>
+
+              <!-- Slide 2: Solar PV & Storage -->
+              <div class="hero__slide" data-index="1" data-sector="Utility-Scale Solar PV" data-tag="Solar Systems" role="group" aria-roledescription="slide" aria-label="Slide 2 of 5: Utility-Scale Solar PV">
+                <div class="hero__slide-image" style="background-image: url('https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;q=85&amp;w=1600');"></div>
+              </div>
+
+              <!-- Slide 3: Smart Manufacturing -->
+              <div class="hero__slide" data-index="2" data-sector="Smart Manufacturing &amp; Robotics" data-tag="Heavy Industry" role="group" aria-roledescription="slide" aria-label="Slide 3 of 5: Smart Manufacturing &amp; Robotics">
+                <div class="hero__slide-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;q=85&amp;w=1600');"></div>
+              </div>
+
+              <!-- Slide 4: Maritime & Logistics -->
+              <div class="hero__slide" data-index="3" data-sector="Maritime Logistics &amp; Ports" data-tag="Supply Chain" role="group" aria-roledescription="slide" aria-label="Slide 4 of 5: Maritime Logistics &amp; Ports">
+                <div class="hero__slide-image" style="background-image: url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;q=85&amp;w=1600');"></div>
+              </div>
+
+              <!-- Slide 5: Process Engineering & Oil/Gas -->
+              <div class="hero__slide" data-index="4" data-sector="Process Plants &amp; Energy EPC" data-tag="Infrastructure" role="group" aria-roledescription="slide" aria-label="Slide 5 of 5: Process Plants &amp; Energy EPC">
+                <div class="hero__slide-image" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;q=85&amp;w=1600');"></div>
+              </div>
+            </div>
+
+            <!-- Soft vignette blend into navy text section -->
+            <div class="hero__slider-overlay" aria-hidden="true"></div>
+
+            <!-- Floating Slider Controls (Only Left & Right Arrows) -->
+            <div class="hero__slider-controls" aria-label="Slider navigation">
+              <button type="button" class="hero__slider-btn hero__slider-btn--prev" id="hero-slider-prev-btn" aria-label="Previous image slide">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button type="button" class="hero__slider-btn hero__slider-btn--next" id="hero-slider-next-btn" aria-label="Next image slide">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
           <div class="container hero__inner">
             <div class="hero__content">
               <div class="hero__label">

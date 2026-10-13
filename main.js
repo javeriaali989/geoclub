@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   initModals();
   initOpportunityActions();
+  initHeroSlider();
 });
 
 // ==========================================================================
@@ -458,3 +459,127 @@ function escapeHtml(str) {
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#039;');
 }
+
+// ==========================================================================
+// 7. Interactive Hero Slider
+// ==========================================================================
+function initHeroSlider() {
+  const sliderEl = document.getElementById('hero-slider');
+  if (!sliderEl) return;
+
+  const slides = Array.from(sliderEl.querySelectorAll('.hero__slide'));
+  if (slides.length <= 1) return;
+
+  const prevBtn = document.getElementById('hero-slider-prev-btn');
+  const nextBtn = document.getElementById('hero-slider-next-btn');
+
+  let currentIndex = 0;
+  let autoplayTimer = null;
+  const AUTOPLAY_DELAY = 10000; // 10 seconds auto-advance as requested
+  const total = slides.length;
+
+  function updateSlideUI(index) {
+    slides.forEach((slide, idx) => {
+      const isActive = idx === index;
+      slide.classList.toggle('is-active', isActive);
+      slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    });
+  }
+
+  function goToSlide(index) {
+    currentIndex = (index + total) % total;
+    updateSlideUI(currentIndex);
+  }
+
+  function nextSlide() {
+    goToSlide(currentIndex + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(currentIndex - 1);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(nextSlide, AUTOPLAY_DELAY);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  // Navigation Buttons (Left / Right Arrows Only)
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextSlide();
+      restartAutoplay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevSlide();
+      restartAutoplay();
+    });
+  }
+
+  // Pause autoplay on hover over hero section
+  const heroSection = document.getElementById('hero-slider-section') || sliderEl;
+  heroSection.addEventListener('mouseenter', stopAutoplay);
+  heroSection.addEventListener('mouseleave', startAutoplay);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    const isHeroVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!isHeroVisible) return;
+
+    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT' || document.activeElement.tagName === 'TEXTAREA')) {
+      return;
+    }
+
+    if (e.key === 'ArrowRight') {
+      nextSlide();
+      restartAutoplay();
+    } else if (e.key === 'ArrowLeft') {
+      prevSlide();
+      restartAutoplay();
+    }
+  });
+
+  // Touch Swipe Support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  sliderEl.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  sliderEl.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+      restartAutoplay();
+    }
+  }, { passive: true });
+
+  // Initial State
+  updateSlideUI(0);
+  startAutoplay();
+}
+
